@@ -1,0 +1,106 @@
+{
+  "case": "E02",
+  "title": "素材库更新后生成脚本",
+  "generated_at": "2026-10-28T10:55:45.544120+00:00",
+  "evidence_type": "offline_debugging_exercise",
+  "mock": true,
+  "purpose": "供候选人定位分析的异常演练；不计入正式验收通过率，不证明真实模型效果。",
+  "request": {
+    "request_id": "debug-E02",
+    "theme": "字幕剪辑产品教程",
+    "budget": 10,
+    "start_at": "2026-11-01T09:00:00+08:00",
+    "deadline": "2026-11-01T13:00:00+08:00"
+  },
+  "diagnosis_status": "awaiting_candidate_analysis",
+  "outcome": "unhandled_exception",
+  "exception": {
+    "type": "KeyError",
+    "message": "'facts'",
+    "frames": [
+      {
+        "file": "scripts/debug_lab.py",
+        "line": 63,
+        "function": "reproduce"
+      },
+      {
+        "file": "src/content_planner/agent.py",
+        "line": 106,
+        "function": "run_agent"
+      },
+      {
+        "file": "src/content_planner/tools.py",
+        "line": 79,
+        "function": "call"
+      },
+      {
+        "file": "src/content_planner/tools.py",
+        "line": 112,
+        "function": "generate_script"
+      }
+    ]
+  },
+  "selected_actions": [
+    {
+      "tool": "search_assets",
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      }
+    },
+    {
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "依据已检索素材生成脚本"
+      }
+    }
+  ],
+  "database_has_plan": false,
+  "checkpoint_steps": [
+    {
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      },
+      "result": {
+        "assets": [
+          {
+            "facts": [
+              "教程依次演示导入素材、编辑字幕与导出视频"
+            ],
+            "id": "A03",
+            "source": "合成教程 v1 / 2026-10-28",
+            "tags": [
+              "教程",
+              "字幕",
+              "剪辑",
+              "产品"
+            ],
+            "title": "剪辑入门教程"
+          },
+          {
+            "id": "A01",
+            "source": "异常演练素材 E02",
+            "tags": [
+              "字幕",
+              "短视频",
+              "产品",
+              "剪辑"
+            ],
+            "title": "字幕功能演示"
+          }
+        ],
+        "count": 2,
+        "ok": true,
+        "query": "字幕剪辑产品教程"
+      },
+      "status": "completed",
+      "tool": "search_assets"
+    }
+  ]
+}

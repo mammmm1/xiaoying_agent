@@ -1,8 +1,19 @@
-# 内容任务规划 Agent · 第 2 题
+# 内容任务规划 Agent
 
-帮助运营人员在预算与截止时间内形成内容活动方案。模型选择动作，工具执行并返回观察，模型再决定换方案、重试或结束。仅保存方案，不执行制作或发布。
+**小影校招 · 第 2 题** &nbsp;|&nbsp; Python 3.11+ · DeepSeek Tool Calling · SQLite · CLI
 
-**真实DeepSeek已跑通，必验场景全部通过。首次检查12/13；额外无素材用例合理追问返回needs_input，修正过窄的状态规则并增强实际观察校验后，同批原始记录复核13/13。原始Trace与首次汇总均保留，没有改写运行结果。Mock仍仅证明流程。**
+帮助运营人员在预算与截止时间内形成有素材依据、可追溯的内容活动方案。模型选择动作，工具返回实际结果，再由模型决定换方案、重试或结束。交付范围为方案保存，制作任务保留为待执行状态。
+
+| 验证与实现 | 当前结果 |
+| --- | --- |
+| 可执行测试 | **36 / 36** |
+| 正式离线场景 | **13 / 13**，明确标记 Mock |
+| 真实模型场景 | 必验项通过；首次 **12 / 13**，评估规则修正后同批记录复核 **13 / 13** |
+| 安装成本 | 运行与测试仅用 Python 标准库，无第三方运行依赖 |
+| 个人投入 | **约 2.5 小时**，候选人自报累计估算，非独立编码时长 |
+| 新增异常演练 | 3 组已复现，等待候选人定位分析；不计入正式通过率 |
+
+> 真实评估的首次汇总与原始 Trace 均保留。无素材时合理追问返回 needs_input，修正过窄的检查规则后重新复核，没有改写原始运行结果。详见评估文档。
 
 ## 评审入口
 
@@ -11,6 +22,10 @@
 - [离线实际运行汇总](examples/offline/summary.json)
 - [真实模型首次汇总](examples/live/summary.json)、[原始记录复核](examples/live/summary-rechecked.json)
 - [逐项要求对齐检查](docs/06-alignment.md)
+- [模块理解与设计取舍](docs/07-understanding.md)
+- [异常定位练习与分析模板](docs/08-debugging-lab.md)
+
+建议评审顺序：先看 [需求与验收](docs/01-requirements.md)，对照 [正常路径](examples/live/normal.json) 和 [超预算重规划](examples/live/replan.json)，再阅读 [结果与限制](docs/03-evaluation.md) 及 [AI 使用与贡献](docs/04-ai-usage.md)。
 
 ## 运行
 
@@ -81,18 +96,28 @@ python run.py --provider mock --input examples/inputs/normal.json --db runtime/l
 
 费用耗时来自合成表，按最终计划计费；本地模拟工具重复调用或失败不额外收费。真实 API token 用量单列，不计入业务模拟预算，不代表真实货币结算。
 
+## 异常定位练习
+
+```powershell
+python scripts/debug_lab.py --case E01
+python scripts/debug_lab.py --case E02
+python scripts/debug_lab.py --case E03
+```
+
+演练使用专用资料与独立数据库，默认报告写入被 Git 忽略的 `runtime/debugging/reports/`；原始演练快照在 `examples/exercises/`。E01、E02 当前会复现未捕获异常，E03 用于判断请求边界。这是新增的异常输入覆盖，不计入已有36项测试或13组正式场景。候选人先分析，再依据分析修复与补测试，当前未声明该诊断和修复已经完成。
+
 ```text
 src/content_planner/  Agent、DeepSeek/Mock、工具、SQLite
 tests/                可执行验证与边界测试
 examples/             输入、实际输出与 Trace
 data/                 合成素材与费用耗时
-docs/                 五份考核文档
+docs/                 五份考核文档、要求核对、理解说明与异常练习
 scripts/              测试记录与场景评估
 ```
 
 ## 提交前
 
-真实运行证据与失败分析已包含。候选人仍需亲自验证并补充个人贡献和实际用时。
+真实运行证据、理解说明、已确认的参与范围和自报用时已包含。候选人应审阅确认内容，并按异常练习模板提交自己的定位分析；后续修复与回归结果另行记录。
 
 - 题号：第 2 题——内容任务规划 Agent
 - GitHub 仓库：[mammmm1/xiaoying_agent](https://github.com/mammmm1/xiaoying_agent)

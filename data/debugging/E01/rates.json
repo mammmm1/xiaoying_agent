@@ -1,0 +1,13 @@
+{
+  "version": "debugging-E01",
+  "currency": "模拟单位",
+  "policy": "独立异常演练资料，不用于正式验收。",
+  "research": {"cost": 1, "minutes": 5},
+  "script": {"cost": 2, "minutes": 10},
+  "production": {
+    "premium": {"cost": 9, "minutes": 90, "description": "精细剪辑与定制包装"},
+    "standard": {"cost": "5", "minutes": 45, "description": "模板剪辑与字幕"},
+    "basic": {"cost": 2, "minutes": 20, "description": "单素材基础剪辑"}
+  },
+  "save": {"cost": 0, "minutes": 1}
+}
