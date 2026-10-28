@@ -2,7 +2,7 @@
 
 ## 已完成
 
-本机 Python 3.12.7；可执行测试 **36/36 通过**。原始运行记录见 [test-results.txt](../examples/test-results.txt)。接口单测使用HTTP替身；下文另有真实DeepSeek调用证据，两者明确区分。
+本机 Python 3.12.7；当前可执行测试 **46/46 通过**，包含初版36项与本轮10项资料校验回归。实际运行记录见 [test-results.txt](../examples/test-results.txt)。接口单测使用HTTP替身；下文另有真实DeepSeek调用证据，两者明确区分。
 
 执行 `python scripts/evaluate.py --provider mock`，**13/13 场景通过**，见 [summary.json](../examples/offline/summary.json)。各 JSON 同时包含实际输入、输出、步骤和 Trace；全部标记 mock:true。
 
@@ -53,14 +53,26 @@ normal 第3步估算 feasible:true 后保存；replan 第3步 feasible:false、b
 
 ## 失败与修正
 
-首轮26项测试中24项通过、2项因系统临时目录不可写失败；改用项目下runtime/test-temp后修复。随后补齐接口边界达到34项；本轮新增2项评估规则测试，总计36项通过。环境与评估修正不等同于模型效果提升。
+首轮26项测试中24项通过、2项因系统临时目录不可写失败；改用项目下runtime/test-temp后修复。初版补齐接口边界和评估规则后达到36项；本轮新增10项资料契约回归，总计46项通过。环境与评估修正不等同于模型效果提升。
 
 对抗模型替身验证：未保存却声称完成、伪造费用、未知工具、未检索素材、旧估算、多动作批次、纯文本宣称成功均不能绕过约束。真实sqlite OperationalError注入显示STORAGE_ERROR，不把失败写成成功。
 
+## 追加异常与当前版本验证
+
+原E01费率类型错误和E02素材facts缺失的TypeError/KeyError现已修复，分别返回INVALID_RATES和INVALID_ASSET_DATA，带不可原样重试标记，保留成功结果且不越界保存。E03的同ID输入变更为正确保护，保留原方案；测试验证新ID可以接受新预算。异常回归 **3/3**，见 [修复后报告](../examples/exercises/README.md) 与 [分析记录](09-debugging-resolution.md)。
+
+当前版本正式离线评估 **13/13**，见 [revision-offline/summary.json](../examples/revision-offline/summary.json)。原版offline和live记录不覆盖。
+
+新版本真实模式首轮 **12/13**，见 [revision-live/summary.json](../examples/revision-live/summary.json)。唯一未通过项deadline_replan在第5轮模型请求发生网络/超时错误；前4轮检索、脚本、premium和standard估算成功，未保存方案。这不是业务成功，原始失败完整保留。与初版无素材状态检查问题不同，本次没有调整预期，单用例真实重跑结果另存retries目录。
+
+仅对该用例使用新数据库实际重跑，单次API超时上限设为120秒；这次是完整重跑，不声称复用了已被评估器清理的临时数据库断点。模型观察到premium和standard超时后改选basic，成本5、总时间36分钟，完成保存。其他已通过用例没有重复运行。
+
+当前13个用例均有通过记录，见 [summary-with-retry.json](../examples/revision-live/summary-with-retry.json) 与 [截止时间重跑Trace](../examples/revision-live/retries/deadline_replan.json)。汇总明确首轮12/13及单例重跑，记录源文件哈希，不把它表述成单轮13/13或长期成功率。
+
 ## 限制
 
-- 新增独立异常演练E01、E02分别复现费率表与素材资料契约不完整时的未捕获异常，见 [定位练习](08-debugging-lab.md)。这些非法资料覆盖未混入正式13组验收；个人诊断及修复仍待后续完成。
-- 真实效果来自本次合成资料的单次评估，尚未验证长期稳定性；模型版本变化可能改变行为。
+- 已覆盖本轮资料契约缺陷；未做全量模糊测试或所有第三方资料格式兼容。文件缺失、部署与存储故障仍应结合CLI及实际运行环境排查。
+- 真实效果仅来自少量合成资料评估，尚未验证长期稳定性；本轮的一次网络中断表明真实调用仍受服务和网络状态影响。
 - 关键词检索、脚本模板和费用耗时均为本地合成实现，不评价开放式创作质量。
 - 制作步骤只被规划，不实际执行；不提供按调用收费工具的真实账本。
 - 串行时间估算，不含人力、节假日或并行资源约束。

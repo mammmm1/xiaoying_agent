@@ -1,4 +1,4 @@
-Generated: 2026-10-28T10:29:25.684658+00:00
+Generated: 2026-10-28T12:09:03.704085+00:00
 Python: 3.12.7
 Command equivalent: python -m unittest discover -s tests -v
 
@@ -28,6 +28,16 @@ test_save_is_idempotent_at_storage_boundary (test_agent.ToolBoundaries.test_save
 test_stale_estimate_cannot_save_changed_script (test_agent.ToolBoundaries.test_stale_estimate_cannot_save_changed_script) ... ok
 test_unknown_tool_and_forged_cost_rejected (test_agent.ToolBoundaries.test_unknown_tool_and_forged_cost_rejected) ... ok
 test_unretrieved_asset_rejected (test_agent.ToolBoundaries.test_unretrieved_asset_rejected) ... ok
+test_duration_and_cost_overflow_are_clear_errors (test_data_validation.DataValidationTests.test_duration_and_cost_overflow_are_clear_errors) ... ok
+test_e01_invalid_rate_is_observed_and_script_is_preserved (test_data_validation.DataValidationTests.test_e01_invalid_rate_is_observed_and_script_is_preserved) ... ok
+test_e02_missing_facts_is_observed_without_partial_script (test_data_validation.DataValidationTests.test_e02_missing_facts_is_observed_without_partial_script) ... ok
+test_e03_new_request_id_allows_new_budget_and_preserves_first_plan (test_data_validation.DataValidationTests.test_e03_new_request_id_allows_new_budget_and_preserves_first_plan) ... ok
+test_invalid_metadata_or_duplicate_ids_is_rejected (test_data_validation.DataValidationTests.test_invalid_metadata_or_duplicate_ids_is_rejected) ... ok
+test_missing_rate_section_returns_data_error (test_data_validation.DataValidationTests.test_missing_rate_section_returns_data_error) ... ok
+test_rate_rejects_text_boolean_negative_and_nonfinite_amounts (test_data_validation.DataValidationTests.test_rate_rejects_text_boolean_negative_and_nonfinite_amounts) ... ok
+test_save_revalidates_rates_and_never_commits_bad_data (test_data_validation.DataValidationTests.test_save_revalidates_rates_and_never_commits_bad_data) ... ok
+test_string_or_empty_facts_cannot_be_silently_joined (test_data_validation.DataValidationTests.test_string_or_empty_facts_cannot_be_silently_joined) ... ok
+test_valid_asset_can_be_selected_after_bad_asset_is_observed (test_data_validation.DataValidationTests.test_valid_asset_can_be_selected_after_bad_asset_is_observed) ... ok
 test_empty_material_can_request_input_but_must_have_evidence (test_evaluation.EvaluationTests.test_empty_material_can_request_input_but_must_have_evidence) ... ok
 test_network_failure_cannot_pass_negative_business_cases (test_evaluation.EvaluationTests.test_network_failure_cannot_pass_negative_business_cases) ... ok
 test_http_error_redacts_server_body (test_models.AdapterTests.test_http_error_redacts_server_body) ... ok
@@ -40,6 +50,6 @@ test_invalid_json_arguments_are_observed_and_can_be_corrected (test_models.Proto
 test_plain_text_claim_does_not_mark_complete (test_models.ProtocolTests.test_plain_text_claim_does_not_mark_complete) ... ok
 
 ----------------------------------------------------------------------
-Ran 36 tests in 0.243s
+Ran 46 tests in 0.437s
 
 OK

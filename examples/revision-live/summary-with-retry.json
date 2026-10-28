@@ -1,0 +1,216 @@
+{
+  "generated_at": "2026-10-28T12:35:45.898862+00:00",
+  "provider": "deepseek",
+  "mock": false,
+  "original_summary": "summary.json",
+  "original_summary_sha256": "828f0b0e3b539908be8772a40577c27eb6bd23f7900a02a69e162c223570f2c3",
+  "original_passed": 12,
+  "total": 13,
+  "passed_after_retry": 13,
+  "cases": [
+    {
+      "case": "normal",
+      "report": "normal.json",
+      "status": "completed",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true
+      },
+      "passed": true,
+      "source_sha256": "07dce11a27d95faa768eaafe012182c774a55bbcfe1b0e0ba58a772a3fcfab60"
+    },
+    {
+      "case": "replan",
+      "report": "replan.json",
+      "status": "completed",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "observed_replanning": true
+      },
+      "passed": true,
+      "source_sha256": "3e22eb52d8dae537af503ba1a9b3c3373502d0a30ec3a057f6e40043e7b7dc62"
+    },
+    {
+      "case": "missing_budget",
+      "report": "missing_budget.json",
+      "status": "needs_input",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true
+      },
+      "passed": true,
+      "source_sha256": "786163d0fc7596815ddcd15922d4d56f42ac2d3ee506e6a8b89d551ed6d836ef"
+    },
+    {
+      "case": "missing_deadline",
+      "report": "missing_deadline.json",
+      "status": "needs_input",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true
+      },
+      "passed": true,
+      "source_sha256": "5ad02e62765021b85e279ac2d7d1068b7badec56c9b57c589c1aca67e20c4047"
+    },
+    {
+      "case": "tool_failure",
+      "report": "tool_failure.json",
+      "status": "completed",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "failure_observed": true,
+        "retrieval_preserved": true
+      },
+      "passed": true,
+      "source_sha256": "2959ecbfb97284cd095de6452fb22420e532951bcab964ce56f7d2b3f20ac040"
+    },
+    {
+      "case": "save_failure",
+      "report": "save_failure.json",
+      "status": "incomplete",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "actual_save_failure": true,
+        "not_saved": true
+      },
+      "passed": true,
+      "source_sha256": "4c057ab846448e6ade9b5cc6c1443fa69a017fc29b519eee1b0faaf36e049fb0"
+    },
+    {
+      "case": "over_budget",
+      "report": "over_budget.json",
+      "status": "incomplete",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "observed_constraint_gap": true,
+        "not_saved": true
+      },
+      "passed": true,
+      "source_sha256": "29a26087ef9852ffa93c5b377f529cf680feaae84b350475fe58460abf368192"
+    },
+    {
+      "case": "deadline_replan",
+      "report": "retries/deadline_replan.json",
+      "status": "completed",
+      "retried": true,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true
+      },
+      "passed": true,
+      "source_sha256": "d6dd7159ac12fdc6f035a91a25be420390b882abe32285d055870039d0f953a2"
+    },
+    {
+      "case": "deadline_impossible",
+      "report": "deadline_impossible.json",
+      "status": "incomplete",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "observed_constraint_gap": true,
+        "not_saved": true
+      },
+      "passed": true,
+      "source_sha256": "d043b56dddbcbc57f1cfd85233a53364f23c5b91c1944de0940a4f5accd88577"
+    },
+    {
+      "case": "no_assets",
+      "report": "no_assets.json",
+      "status": "needs_input",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "empty_material_observed": true,
+        "no_fabricated_script_or_save": true,
+        "explicit_material_gap": true
+      },
+      "passed": true,
+      "source_sha256": "24f770f8dc374f13b4e8133b90d85eb2c0fcfa537772eb81f42bf9270eee221e"
+    },
+    {
+      "case": "duplicate",
+      "report": "duplicate.json",
+      "status": "completed",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "one_saved_plan": true,
+        "no_new_model_call": true
+      },
+      "passed": true,
+      "source_sha256": "ed367ec2d14d7bb0aef4beefee37174cf954e4aefbe2b6e7acc110e20bc41c1d"
+    },
+    {
+      "case": "step_limit",
+      "report": "step_limit.json",
+      "status": "incomplete",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "explicit_step_limit": true
+      },
+      "passed": true,
+      "source_sha256": "3ef612d78d87fbfa91f84c958092607c5949dff9958e3d05cea53085dcded8f1"
+    },
+    {
+      "case": "resume",
+      "report": "resume.json",
+      "status": "completed",
+      "retried": false,
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "script_reused": true
+      },
+      "passed": true,
+      "source_sha256": "d652f2995c7beb0eca79eb5e1a063bf2e1a25ee4ce6e8552da25c86f6d140c80"
+    }
+  ],
+  "note": "首轮12/13，deadline_replan在第5轮请求网络中断。仅对此用例使用新数据库实际重新运行，超时上限120秒，未声称断点续跑；其他已通过用例不重跑。保留全部原始失败和重跑结果。重复保存行数沿用首轮真实数据库检查。"
+}

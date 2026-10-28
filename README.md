@@ -6,14 +6,14 @@
 
 | 验证与实现 | 当前结果 |
 | --- | --- |
-| 可执行测试 | **36 / 36** |
-| 正式离线场景 | **13 / 13**，明确标记 Mock |
-| 真实模型场景 | 必验项通过；首次 **12 / 13**，评估规则修正后同批记录复核 **13 / 13** |
+| 可执行测试 | **46 / 46**，含新增资料校验与保存前重校验回归 |
+| 正式离线场景 | 新版本 **13 / 13**，明确标记 Mock |
+| 真实模型场景 | 新版本首轮12/13；仅重跑一次网络失败用例后 **13 / 13** 均有通过记录 |
 | 安装成本 | 运行与测试仅用 Python 标准库，无第三方运行依赖 |
 | 个人投入 | **约 2.5 小时**，候选人自报累计估算，非独立编码时长 |
-| 新增异常演练 | 3 组已复现，等待候选人定位分析；不计入正式通过率 |
+| 异常改进 | 2个资料校验缺陷已修复，1个业务保护边界已确认；3组回归通过 |
 
-> 真实评估的首次汇总与原始 Trace 均保留。无素材时合理追问返回 needs_input，修正过窄的检查规则后重新复核，没有改写原始运行结果。详见评估文档。
+> 初版因无素材状态检查过窄得到12/13，修正规则后复核13/13；本轮真实首轮12/13的原因是一次网络中断，单用例实际重跑后通过。两次评估与原始Trace分别保留，详见评估文档。
 
 ## 评审入口
 
@@ -21,9 +21,11 @@
 - [AI 使用](docs/04-ai-usage.md)、[复盘与用时](docs/05-retrospective.md)
 - [离线实际运行汇总](examples/offline/summary.json)
 - [真实模型首次汇总](examples/live/summary.json)、[原始记录复核](examples/live/summary-rechecked.json)
+- [新版本离线评估](examples/revision-offline/summary.json)、[新版本真实评估与单例重跑](examples/revision-live/summary-with-retry.json)
 - [逐项要求对齐检查](docs/06-alignment.md)
 - [模块理解与设计取舍](docs/07-understanding.md)
 - [异常定位练习与分析模板](docs/08-debugging-lab.md)
+- [异常根因、修复与回归记录](docs/09-debugging-resolution.md)
 
 建议评审顺序：先看 [需求与验收](docs/01-requirements.md)，对照 [正常路径](examples/live/normal.json) 和 [超预算重规划](examples/live/replan.json)，再阅读 [结果与限制](docs/03-evaluation.md) 及 [AI 使用与贡献](docs/04-ai-usage.md)。
 
@@ -104,7 +106,7 @@ python scripts/debug_lab.py --case E02
 python scripts/debug_lab.py --case E03
 ```
 
-演练使用专用资料与独立数据库，默认报告写入被 Git 忽略的 `runtime/debugging/reports/`；原始演练快照在 `examples/exercises/`。E01、E02 当前会复现未捕获异常，E03 用于判断请求边界。这是新增的异常输入覆盖，不计入已有36项测试或13组正式场景。候选人先分析，再依据分析修复与补测试，当前未声明该诊断和修复已经完成。
+演练使用专用资料与独立数据库，默认报告写入被Git忽略的 `runtime/debugging/reports/`。首次故障快照保留在 `examples/exercises/`，修复后结果见 `examples/exercises/after/`。E01、E02现在返回明确资料错误并保留成功步骤；E03仍拒绝同一ID下的输入变更。三组回归通过不代表业务请求全部成功，而是异常被正确处理、没有越界保存。新增10项测试已计入46项；原13组正式场景单列。
 
 ```text
 src/content_planner/  Agent、DeepSeek/Mock、工具、SQLite
@@ -117,7 +119,7 @@ scripts/              测试记录与场景评估
 
 ## 提交前
 
-真实运行证据、理解说明、已确认的参与范围和自报用时已包含。候选人应审阅确认内容，并按异常练习模板提交自己的定位分析；后续修复与回归结果另行记录。
+真实运行证据、理解说明、实际分工、自报用时和异常分析修复记录已包含。候选人应审阅确认内容，能依据代码与记录解释取舍；AI完成的分析和修改已明确归属，不作为独立手工开发经历。
 
 - 题号：第 2 题——内容任务规划 Agent
 - GitHub 仓库：[mammmm1/xiaoying_agent](https://github.com/mammmm1/xiaoying_agent)

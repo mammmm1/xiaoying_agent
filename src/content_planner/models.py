@@ -109,6 +109,8 @@ class MockModel:
 
         if observations and not observations[-1]["result"]["ok"]:
             failed = observations[-1]
+            if failed["result"].get("error", {}).get("retryable") is False:
+                return end("工具资料需要修正，保留已成功步骤：" + failed["result"]["error"]["message"])
             times = sum(o["tool"] == failed["tool"] and not o["result"]["ok"] for o in observations)
             if times >= 2:
                 return end("工具持续失败；保留已成功步骤，稍后可以续跑")

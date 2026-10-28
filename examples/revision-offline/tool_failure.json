@@ -1,0 +1,1120 @@
+{
+  "run_id": "3f3beee9-da33-4d11-8fe6-642e515a9c58",
+  "started_at": "2026-10-28T12:10:19.184426+00:00",
+  "provider": "mock",
+  "model": "offline-rule-simulator",
+  "mock": true,
+  "request": {
+    "request_id": "tool-failure-001",
+    "theme": "字幕剪辑产品教程",
+    "budget": 10,
+    "start_at": "2026-11-01T09:00:00+08:00",
+    "deadline": "2026-11-01T13:00:00+08:00"
+  },
+  "max_steps": 12,
+  "trace": [
+    {
+      "step": 1,
+      "tool": "search_assets",
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      },
+      "decision_basis": "先查找主题相关素材",
+      "observation": {
+        "ok": true,
+        "assets": [
+          {
+            "id": "A03",
+            "tags": [
+              "教程",
+              "字幕",
+              "剪辑",
+              "产品"
+            ],
+            "title": "剪辑入门教程",
+            "facts": [
+              "教程依次演示导入素材、编辑字幕与导出视频"
+            ],
+            "source": "合成教程 v1 / 2026-10-28"
+          },
+          {
+            "id": "A01",
+            "tags": [
+              "字幕",
+              "短视频",
+              "产品",
+              "剪辑"
+            ],
+            "title": "字幕功能演示",
+            "facts": [
+              "演示素材展示了为视频添加字幕的操作",
+              "字幕文本可以编辑"
+            ],
+            "source": "合成产品说明 v1 / 2026-10-28"
+          }
+        ],
+        "count": 2,
+        "query": "字幕剪辑产品教程"
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "generate_script",
+      "observation_summary": {
+        "ok": true,
+        "count": 2,
+        "query": "字幕剪辑产品教程"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "依据已检索素材生成脚本"
+      },
+      "decision_basis": "依据已检索素材生成脚本",
+      "observation": {
+        "ok": false,
+        "error": {
+          "code": "INJECTED_FAILURE",
+          "message": "模拟 generate_script 工具失败；未执行副作用，可由模型选择重试、替代或停止"
+        }
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "generate_script",
+      "observation_summary": {
+        "ok": false,
+        "error": {
+          "code": "INJECTED_FAILURE",
+          "message": "模拟 generate_script 工具失败；未执行副作用，可由模型选择重试、替代或停止"
+        }
+      }
+    },
+    {
+      "step": 3,
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "观察到工具失败，复用已成功结果并重试失败步骤"
+      },
+      "decision_basis": "观察到工具失败，复用已成功结果并重试失败步骤",
+      "observation": {
+        "ok": true,
+        "script": {
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "format": "tutorial",
+          "scenes": [
+            {
+              "scene": 1,
+              "visual": "剪辑入门教程",
+              "narration": "教程依次演示导入素材、编辑字幕与导出视频",
+              "source_ids": [
+                "A03"
+              ]
+            },
+            {
+              "scene": 2,
+              "visual": "字幕功能演示",
+              "narration": "演示素材展示了为视频添加字幕的操作；字幕文本可以编辑",
+              "source_ids": [
+                "A01"
+              ]
+            }
+          ],
+          "service": "local_template_mock",
+          "asset_ids": [
+            "A03",
+            "A01"
+          ]
+        },
+        "cached": false
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "estimate_plan",
+      "observation_summary": {
+        "script_id": "script-241841aba8712f30ffdf47ef",
+        "cached": false
+      }
+    },
+    {
+      "step": 4,
+      "tool": "estimate_plan",
+      "arguments": {
+        "reason": "先评估精细制作方案的成本和耗时",
+        "tier": "premium"
+      },
+      "decision_basis": "先评估精细制作方案的成本和耗时",
+      "observation": {
+        "ok": true,
+        "estimate": {
+          "estimate_id": "estimate-5dff5ce8f0706a0bf407b661",
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "tier": "premium",
+          "breakdown": [
+            {
+              "cost": 1,
+              "minutes": 5,
+              "step": "research"
+            },
+            {
+              "cost": 2,
+              "minutes": 10,
+              "step": "script"
+            },
+            {
+              "cost": 9,
+              "minutes": 90,
+              "description": "精细剪辑与定制包装",
+              "step": "production"
+            },
+            {
+              "cost": 0,
+              "minutes": 1,
+              "step": "save"
+            }
+          ],
+          "total_cost": 12,
+          "currency": "模拟单位",
+          "total_minutes": 106,
+          "finish_at": "2026-11-01T10:46:00+08:00",
+          "within_budget": false,
+          "within_deadline": true,
+          "budget_gap": 2,
+          "deadline_gap_minutes": 0,
+          "production_options": {
+            "premium": {
+              "cost": 9,
+              "minutes": 90,
+              "description": "精细剪辑与定制包装"
+            },
+            "standard": {
+              "cost": 5,
+              "minutes": 45,
+              "description": "模板剪辑与字幕"
+            },
+            "basic": {
+              "cost": 2,
+              "minutes": 20,
+              "description": "单素材基础剪辑"
+            }
+          },
+          "rates_version": "synthetic-v1",
+          "feasible": false
+        }
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "estimate_plan",
+      "observation_summary": {
+        "tier": "premium",
+        "total_cost": 12,
+        "total_minutes": 106,
+        "feasible": false,
+        "budget_gap": 2,
+        "deadline_gap_minutes": 0
+      }
+    },
+    {
+      "step": 5,
+      "tool": "estimate_plan",
+      "arguments": {
+        "reason": "观察到预算或时间超限，保留脚本并评估更轻量方案",
+        "tier": "standard"
+      },
+      "decision_basis": "观察到预算或时间超限，保留脚本并评估更轻量方案",
+      "observation": {
+        "ok": true,
+        "estimate": {
+          "estimate_id": "estimate-e09495da3529aa43143958c0",
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "tier": "standard",
+          "breakdown": [
+            {
+              "cost": 1,
+              "minutes": 5,
+              "step": "research"
+            },
+            {
+              "cost": 2,
+              "minutes": 10,
+              "step": "script"
+            },
+            {
+              "cost": 5,
+              "minutes": 45,
+              "description": "模板剪辑与字幕",
+              "step": "production"
+            },
+            {
+              "cost": 0,
+              "minutes": 1,
+              "step": "save"
+            }
+          ],
+          "total_cost": 8,
+          "currency": "模拟单位",
+          "total_minutes": 61,
+          "finish_at": "2026-11-01T10:01:00+08:00",
+          "within_budget": true,
+          "within_deadline": true,
+          "budget_gap": 0,
+          "deadline_gap_minutes": 0,
+          "production_options": {
+            "premium": {
+              "cost": 9,
+              "minutes": 90,
+              "description": "精细剪辑与定制包装"
+            },
+            "standard": {
+              "cost": 5,
+              "minutes": 45,
+              "description": "模板剪辑与字幕"
+            },
+            "basic": {
+              "cost": 2,
+              "minutes": 20,
+              "description": "单素材基础剪辑"
+            }
+          },
+          "rates_version": "synthetic-v1",
+          "feasible": true
+        }
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "save_plan",
+      "observation_summary": {
+        "tier": "standard",
+        "total_cost": 8,
+        "total_minutes": 61,
+        "feasible": true,
+        "budget_gap": 0,
+        "deadline_gap_minutes": 0
+      }
+    },
+    {
+      "step": 6,
+      "tool": "save_plan",
+      "arguments": {
+        "estimate_id": "estimate-e09495da3529aa43143958c0",
+        "reason": "估算同时满足预算和截止时间，保存方案"
+      },
+      "decision_basis": "估算同时满足预算和截止时间，保存方案",
+      "observation": {
+        "ok": true,
+        "saved": true,
+        "plan_id": "plan-fb5e47b43be7c163da0341e1",
+        "plan": {
+          "budget": 10,
+          "deadline": "2026-11-01T13:00:00+08:00",
+          "estimate": {
+            "breakdown": [
+              {
+                "cost": 1,
+                "minutes": 5,
+                "step": "research"
+              },
+              {
+                "cost": 2,
+                "minutes": 10,
+                "step": "script"
+              },
+              {
+                "cost": 5,
+                "description": "模板剪辑与字幕",
+                "minutes": 45,
+                "step": "production"
+              },
+              {
+                "cost": 0,
+                "minutes": 1,
+                "step": "save"
+              }
+            ],
+            "budget_gap": 0,
+            "currency": "模拟单位",
+            "deadline_gap_minutes": 0,
+            "estimate_id": "estimate-e09495da3529aa43143958c0",
+            "feasible": true,
+            "finish_at": "2026-11-01T10:01:00+08:00",
+            "production_options": {
+              "basic": {
+                "cost": 2,
+                "description": "单素材基础剪辑",
+                "minutes": 20
+              },
+              "premium": {
+                "cost": 9,
+                "description": "精细剪辑与定制包装",
+                "minutes": 90
+              },
+              "standard": {
+                "cost": 5,
+                "description": "模板剪辑与字幕",
+                "minutes": 45
+              }
+            },
+            "rates_version": "synthetic-v1",
+            "script_id": "script-241841aba8712f30ffdf47ef",
+            "tier": "standard",
+            "total_cost": 8,
+            "total_minutes": 61,
+            "within_budget": true,
+            "within_deadline": true
+          },
+          "plan_id": "plan-fb5e47b43be7c163da0341e1",
+          "request_id": "tool-failure-001",
+          "risks": [
+            "素材、制作费用与耗时为合成数据",
+            "脚本生成使用本地模板工具",
+            "真实模型 API 费用不在模拟预算中"
+          ],
+          "scope": "内容活动方案已保存；制作任务尚待执行，无真实发布",
+          "script": {
+            "asset_ids": [
+              "A03",
+              "A01"
+            ],
+            "format": "tutorial",
+            "scenes": [
+              {
+                "narration": "教程依次演示导入素材、编辑字幕与导出视频",
+                "scene": 1,
+                "source_ids": [
+                  "A03"
+                ],
+                "visual": "剪辑入门教程"
+              },
+              {
+                "narration": "演示素材展示了为视频添加字幕的操作；字幕文本可以编辑",
+                "scene": 2,
+                "source_ids": [
+                  "A01"
+                ],
+                "visual": "字幕功能演示"
+              }
+            ],
+            "script_id": "script-241841aba8712f30ffdf47ef",
+            "service": "local_template_mock"
+          },
+          "tasks": [
+            {
+              "cost": 1,
+              "depends_on": [],
+              "end_at": "2026-11-01T09:05:00+08:00",
+              "minutes": 5,
+              "start_at": "2026-11-01T09:00:00+08:00",
+              "status": "completed",
+              "step": "research"
+            },
+            {
+              "cost": 2,
+              "depends_on": [
+                "research"
+              ],
+              "end_at": "2026-11-01T09:15:00+08:00",
+              "minutes": 10,
+              "start_at": "2026-11-01T09:05:00+08:00",
+              "status": "completed",
+              "step": "script"
+            },
+            {
+              "cost": 5,
+              "depends_on": [
+                "script"
+              ],
+              "description": "模板剪辑与字幕",
+              "end_at": "2026-11-01T10:00:00+08:00",
+              "minutes": 45,
+              "start_at": "2026-11-01T09:15:00+08:00",
+              "status": "planned",
+              "step": "production"
+            },
+            {
+              "cost": 0,
+              "depends_on": [
+                "production"
+              ],
+              "end_at": "2026-11-01T10:01:00+08:00",
+              "minutes": 1,
+              "start_at": "2026-11-01T10:00:00+08:00",
+              "status": "completed",
+              "step": "save"
+            }
+          ],
+          "theme": "字幕剪辑产品教程"
+        }
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "finish",
+      "observation_summary": {
+        "saved": true,
+        "plan_id": "plan-fb5e47b43be7c163da0341e1"
+      }
+    },
+    {
+      "step": 7,
+      "tool": "finish",
+      "arguments": {
+        "reason": "已观察到持久化成功",
+        "status": "completed",
+        "summary": "可行方案已保存，制作任务待执行"
+      },
+      "decision_basis": "已观察到持久化成功",
+      "observation": {
+        "ok": true,
+        "status": "completed",
+        "summary": "可行方案已保存，制作任务待执行"
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "结束：completed",
+      "observation_summary": {
+        "ok": true,
+        "status": "completed",
+        "summary": "可行方案已保存，制作任务待执行"
+      }
+    }
+  ],
+  "model_calls": 7,
+  "tool_calls": 7,
+  "api_usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0
+  },
+  "status": "completed",
+  "summary": "可行方案已保存，制作任务待执行",
+  "error_code": null,
+  "saved": true,
+  "plan": {
+    "budget": 10,
+    "deadline": "2026-11-01T13:00:00+08:00",
+    "estimate": {
+      "breakdown": [
+        {
+          "cost": 1,
+          "minutes": 5,
+          "step": "research"
+        },
+        {
+          "cost": 2,
+          "minutes": 10,
+          "step": "script"
+        },
+        {
+          "cost": 5,
+          "description": "模板剪辑与字幕",
+          "minutes": 45,
+          "step": "production"
+        },
+        {
+          "cost": 0,
+          "minutes": 1,
+          "step": "save"
+        }
+      ],
+      "budget_gap": 0,
+      "currency": "模拟单位",
+      "deadline_gap_minutes": 0,
+      "estimate_id": "estimate-e09495da3529aa43143958c0",
+      "feasible": true,
+      "finish_at": "2026-11-01T10:01:00+08:00",
+      "production_options": {
+        "basic": {
+          "cost": 2,
+          "description": "单素材基础剪辑",
+          "minutes": 20
+        },
+        "premium": {
+          "cost": 9,
+          "description": "精细剪辑与定制包装",
+          "minutes": 90
+        },
+        "standard": {
+          "cost": 5,
+          "description": "模板剪辑与字幕",
+          "minutes": 45
+        }
+      },
+      "rates_version": "synthetic-v1",
+      "script_id": "script-241841aba8712f30ffdf47ef",
+      "tier": "standard",
+      "total_cost": 8,
+      "total_minutes": 61,
+      "within_budget": true,
+      "within_deadline": true
+    },
+    "plan_id": "plan-fb5e47b43be7c163da0341e1",
+    "request_id": "tool-failure-001",
+    "risks": [
+      "素材、制作费用与耗时为合成数据",
+      "脚本生成使用本地模板工具",
+      "真实模型 API 费用不在模拟预算中"
+    ],
+    "scope": "内容活动方案已保存；制作任务尚待执行，无真实发布",
+    "script": {
+      "asset_ids": [
+        "A03",
+        "A01"
+      ],
+      "format": "tutorial",
+      "scenes": [
+        {
+          "narration": "教程依次演示导入素材、编辑字幕与导出视频",
+          "scene": 1,
+          "source_ids": [
+            "A03"
+          ],
+          "visual": "剪辑入门教程"
+        },
+        {
+          "narration": "演示素材展示了为视频添加字幕的操作；字幕文本可以编辑",
+          "scene": 2,
+          "source_ids": [
+            "A01"
+          ],
+          "visual": "字幕功能演示"
+        }
+      ],
+      "script_id": "script-241841aba8712f30ffdf47ef",
+      "service": "local_template_mock"
+    },
+    "tasks": [
+      {
+        "cost": 1,
+        "depends_on": [],
+        "end_at": "2026-11-01T09:05:00+08:00",
+        "minutes": 5,
+        "start_at": "2026-11-01T09:00:00+08:00",
+        "status": "completed",
+        "step": "research"
+      },
+      {
+        "cost": 2,
+        "depends_on": [
+          "research"
+        ],
+        "end_at": "2026-11-01T09:15:00+08:00",
+        "minutes": 10,
+        "start_at": "2026-11-01T09:05:00+08:00",
+        "status": "completed",
+        "step": "script"
+      },
+      {
+        "cost": 5,
+        "depends_on": [
+          "script"
+        ],
+        "description": "模板剪辑与字幕",
+        "end_at": "2026-11-01T10:00:00+08:00",
+        "minutes": 45,
+        "start_at": "2026-11-01T09:15:00+08:00",
+        "status": "planned",
+        "step": "production"
+      },
+      {
+        "cost": 0,
+        "depends_on": [
+          "production"
+        ],
+        "end_at": "2026-11-01T10:01:00+08:00",
+        "minutes": 1,
+        "start_at": "2026-11-01T10:00:00+08:00",
+        "status": "completed",
+        "step": "save"
+      }
+    ],
+    "theme": "字幕剪辑产品教程"
+  },
+  "latest_estimate": {
+    "estimate_id": "estimate-e09495da3529aa43143958c0",
+    "script_id": "script-241841aba8712f30ffdf47ef",
+    "tier": "standard",
+    "breakdown": [
+      {
+        "cost": 1,
+        "minutes": 5,
+        "step": "research"
+      },
+      {
+        "cost": 2,
+        "minutes": 10,
+        "step": "script"
+      },
+      {
+        "cost": 5,
+        "minutes": 45,
+        "description": "模板剪辑与字幕",
+        "step": "production"
+      },
+      {
+        "cost": 0,
+        "minutes": 1,
+        "step": "save"
+      }
+    ],
+    "total_cost": 8,
+    "currency": "模拟单位",
+    "total_minutes": 61,
+    "finish_at": "2026-11-01T10:01:00+08:00",
+    "within_budget": true,
+    "within_deadline": true,
+    "budget_gap": 0,
+    "deadline_gap_minutes": 0,
+    "production_options": {
+      "premium": {
+        "cost": 9,
+        "minutes": 90,
+        "description": "精细剪辑与定制包装"
+      },
+      "standard": {
+        "cost": 5,
+        "minutes": 45,
+        "description": "模板剪辑与字幕"
+      },
+      "basic": {
+        "cost": 2,
+        "minutes": 20,
+        "description": "单素材基础剪辑"
+      }
+    },
+    "rates_version": "synthetic-v1",
+    "feasible": true
+  },
+  "steps": [
+    {
+      "tool": "search_assets",
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      },
+      "result": {
+        "ok": true,
+        "assets": [
+          {
+            "id": "A03",
+            "tags": [
+              "教程",
+              "字幕",
+              "剪辑",
+              "产品"
+            ],
+            "title": "剪辑入门教程",
+            "facts": [
+              "教程依次演示导入素材、编辑字幕与导出视频"
+            ],
+            "source": "合成教程 v1 / 2026-10-28"
+          },
+          {
+            "id": "A01",
+            "tags": [
+              "字幕",
+              "短视频",
+              "产品",
+              "剪辑"
+            ],
+            "title": "字幕功能演示",
+            "facts": [
+              "演示素材展示了为视频添加字幕的操作",
+              "字幕文本可以编辑"
+            ],
+            "source": "合成产品说明 v1 / 2026-10-28"
+          }
+        ],
+        "count": 2,
+        "query": "字幕剪辑产品教程"
+      },
+      "status": "completed"
+    },
+    {
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "依据已检索素材生成脚本"
+      },
+      "result": {
+        "ok": false,
+        "error": {
+          "code": "INJECTED_FAILURE",
+          "message": "模拟 generate_script 工具失败；未执行副作用，可由模型选择重试、替代或停止"
+        }
+      },
+      "status": "failed"
+    },
+    {
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "观察到工具失败，复用已成功结果并重试失败步骤"
+      },
+      "result": {
+        "ok": true,
+        "script": {
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "format": "tutorial",
+          "scenes": [
+            {
+              "scene": 1,
+              "visual": "剪辑入门教程",
+              "narration": "教程依次演示导入素材、编辑字幕与导出视频",
+              "source_ids": [
+                "A03"
+              ]
+            },
+            {
+              "scene": 2,
+              "visual": "字幕功能演示",
+              "narration": "演示素材展示了为视频添加字幕的操作；字幕文本可以编辑",
+              "source_ids": [
+                "A01"
+              ]
+            }
+          ],
+          "service": "local_template_mock",
+          "asset_ids": [
+            "A03",
+            "A01"
+          ]
+        },
+        "cached": false
+      },
+      "status": "completed"
+    },
+    {
+      "tool": "estimate_plan",
+      "arguments": {
+        "reason": "先评估精细制作方案的成本和耗时",
+        "tier": "premium"
+      },
+      "result": {
+        "ok": true,
+        "estimate": {
+          "estimate_id": "estimate-5dff5ce8f0706a0bf407b661",
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "tier": "premium",
+          "breakdown": [
+            {
+              "cost": 1,
+              "minutes": 5,
+              "step": "research"
+            },
+            {
+              "cost": 2,
+              "minutes": 10,
+              "step": "script"
+            },
+            {
+              "cost": 9,
+              "minutes": 90,
+              "description": "精细剪辑与定制包装",
+              "step": "production"
+            },
+            {
+              "cost": 0,
+              "minutes": 1,
+              "step": "save"
+            }
+          ],
+          "total_cost": 12,
+          "currency": "模拟单位",
+          "total_minutes": 106,
+          "finish_at": "2026-11-01T10:46:00+08:00",
+          "within_budget": false,
+          "within_deadline": true,
+          "budget_gap": 2,
+          "deadline_gap_minutes": 0,
+          "production_options": {
+            "premium": {
+              "cost": 9,
+              "minutes": 90,
+              "description": "精细剪辑与定制包装"
+            },
+            "standard": {
+              "cost": 5,
+              "minutes": 45,
+              "description": "模板剪辑与字幕"
+            },
+            "basic": {
+              "cost": 2,
+              "minutes": 20,
+              "description": "单素材基础剪辑"
+            }
+          },
+          "rates_version": "synthetic-v1",
+          "feasible": false
+        }
+      },
+      "status": "completed"
+    },
+    {
+      "tool": "estimate_plan",
+      "arguments": {
+        "reason": "观察到预算或时间超限，保留脚本并评估更轻量方案",
+        "tier": "standard"
+      },
+      "result": {
+        "ok": true,
+        "estimate": {
+          "estimate_id": "estimate-e09495da3529aa43143958c0",
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "tier": "standard",
+          "breakdown": [
+            {
+              "cost": 1,
+              "minutes": 5,
+              "step": "research"
+            },
+            {
+              "cost": 2,
+              "minutes": 10,
+              "step": "script"
+            },
+            {
+              "cost": 5,
+              "minutes": 45,
+              "description": "模板剪辑与字幕",
+              "step": "production"
+            },
+            {
+              "cost": 0,
+              "minutes": 1,
+              "step": "save"
+            }
+          ],
+          "total_cost": 8,
+          "currency": "模拟单位",
+          "total_minutes": 61,
+          "finish_at": "2026-11-01T10:01:00+08:00",
+          "within_budget": true,
+          "within_deadline": true,
+          "budget_gap": 0,
+          "deadline_gap_minutes": 0,
+          "production_options": {
+            "premium": {
+              "cost": 9,
+              "minutes": 90,
+              "description": "精细剪辑与定制包装"
+            },
+            "standard": {
+              "cost": 5,
+              "minutes": 45,
+              "description": "模板剪辑与字幕"
+            },
+            "basic": {
+              "cost": 2,
+              "minutes": 20,
+              "description": "单素材基础剪辑"
+            }
+          },
+          "rates_version": "synthetic-v1",
+          "feasible": true
+        }
+      },
+      "status": "completed"
+    },
+    {
+      "tool": "save_plan",
+      "arguments": {
+        "estimate_id": "estimate-e09495da3529aa43143958c0",
+        "reason": "估算同时满足预算和截止时间，保存方案"
+      },
+      "result": {
+        "ok": true,
+        "saved": true,
+        "plan_id": "plan-fb5e47b43be7c163da0341e1",
+        "plan": {
+          "budget": 10,
+          "deadline": "2026-11-01T13:00:00+08:00",
+          "estimate": {
+            "breakdown": [
+              {
+                "cost": 1,
+                "minutes": 5,
+                "step": "research"
+              },
+              {
+                "cost": 2,
+                "minutes": 10,
+                "step": "script"
+              },
+              {
+                "cost": 5,
+                "description": "模板剪辑与字幕",
+                "minutes": 45,
+                "step": "production"
+              },
+              {
+                "cost": 0,
+                "minutes": 1,
+                "step": "save"
+              }
+            ],
+            "budget_gap": 0,
+            "currency": "模拟单位",
+            "deadline_gap_minutes": 0,
+            "estimate_id": "estimate-e09495da3529aa43143958c0",
+            "feasible": true,
+            "finish_at": "2026-11-01T10:01:00+08:00",
+            "production_options": {
+              "basic": {
+                "cost": 2,
+                "description": "单素材基础剪辑",
+                "minutes": 20
+              },
+              "premium": {
+                "cost": 9,
+                "description": "精细剪辑与定制包装",
+                "minutes": 90
+              },
+              "standard": {
+                "cost": 5,
+                "description": "模板剪辑与字幕",
+                "minutes": 45
+              }
+            },
+            "rates_version": "synthetic-v1",
+            "script_id": "script-241841aba8712f30ffdf47ef",
+            "tier": "standard",
+            "total_cost": 8,
+            "total_minutes": 61,
+            "within_budget": true,
+            "within_deadline": true
+          },
+          "plan_id": "plan-fb5e47b43be7c163da0341e1",
+          "request_id": "tool-failure-001",
+          "risks": [
+            "素材、制作费用与耗时为合成数据",
+            "脚本生成使用本地模板工具",
+            "真实模型 API 费用不在模拟预算中"
+          ],
+          "scope": "内容活动方案已保存；制作任务尚待执行，无真实发布",
+          "script": {
+            "asset_ids": [
+              "A03",
+              "A01"
+            ],
+            "format": "tutorial",
+            "scenes": [
+              {
+                "narration": "教程依次演示导入素材、编辑字幕与导出视频",
+                "scene": 1,
+                "source_ids": [
+                  "A03"
+                ],
+                "visual": "剪辑入门教程"
+              },
+              {
+                "narration": "演示素材展示了为视频添加字幕的操作；字幕文本可以编辑",
+                "scene": 2,
+                "source_ids": [
+                  "A01"
+                ],
+                "visual": "字幕功能演示"
+              }
+            ],
+            "script_id": "script-241841aba8712f30ffdf47ef",
+            "service": "local_template_mock"
+          },
+          "tasks": [
+            {
+              "cost": 1,
+              "depends_on": [],
+              "end_at": "2026-11-01T09:05:00+08:00",
+              "minutes": 5,
+              "start_at": "2026-11-01T09:00:00+08:00",
+              "status": "completed",
+              "step": "research"
+            },
+            {
+              "cost": 2,
+              "depends_on": [
+                "research"
+              ],
+              "end_at": "2026-11-01T09:15:00+08:00",
+              "minutes": 10,
+              "start_at": "2026-11-01T09:05:00+08:00",
+              "status": "completed",
+              "step": "script"
+            },
+            {
+              "cost": 5,
+              "depends_on": [
+                "script"
+              ],
+              "description": "模板剪辑与字幕",
+              "end_at": "2026-11-01T10:00:00+08:00",
+              "minutes": 45,
+              "start_at": "2026-11-01T09:15:00+08:00",
+              "status": "planned",
+              "step": "production"
+            },
+            {
+              "cost": 0,
+              "depends_on": [
+                "production"
+              ],
+              "end_at": "2026-11-01T10:01:00+08:00",
+              "minutes": 1,
+              "start_at": "2026-11-01T10:00:00+08:00",
+              "status": "completed",
+              "step": "save"
+            }
+          ],
+          "theme": "字幕剪辑产品教程"
+        }
+      },
+      "status": "completed"
+    },
+    {
+      "tool": "finish",
+      "arguments": {
+        "reason": "已观察到持久化成功",
+        "status": "completed",
+        "summary": "可行方案已保存，制作任务待执行"
+      },
+      "result": {
+        "ok": true,
+        "status": "completed",
+        "summary": "可行方案已保存，制作任务待执行"
+      },
+      "status": "completed"
+    }
+  ],
+  "ended_at": "2026-10-28T12:10:19.272258+00:00",
+  "evidence_note": "离线规则模拟，仅验证流程，不证明真实模型决策效果"
+}

@@ -1,0 +1,187 @@
+{
+  "generated_at": "2026-10-28T12:10:19.691620+00:00",
+  "provider": "mock",
+  "mock": true,
+  "cases": [
+    {
+      "case": "normal",
+      "report": "normal.json",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true
+      },
+      "passed": true
+    },
+    {
+      "case": "replan",
+      "report": "replan.json",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "observed_replanning": true
+      },
+      "passed": true
+    },
+    {
+      "case": "missing_budget",
+      "report": "missing_budget.json",
+      "status": "needs_input",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true
+      },
+      "passed": true
+    },
+    {
+      "case": "missing_deadline",
+      "report": "missing_deadline.json",
+      "status": "needs_input",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true
+      },
+      "passed": true
+    },
+    {
+      "case": "tool_failure",
+      "report": "tool_failure.json",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "failure_observed": true,
+        "retrieval_preserved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "save_failure",
+      "report": "save_failure.json",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "actual_save_failure": true,
+        "not_saved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "over_budget",
+      "report": "over_budget.json",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "observed_constraint_gap": true,
+        "not_saved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "deadline_replan",
+      "report": "deadline_replan.json",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true
+      },
+      "passed": true
+    },
+    {
+      "case": "deadline_impossible",
+      "report": "deadline_impossible.json",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "observed_constraint_gap": true,
+        "not_saved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "no_assets",
+      "report": "no_assets.json",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "empty_material_observed": true,
+        "no_fabricated_script_or_save": true,
+        "explicit_material_gap": true
+      },
+      "passed": true
+    },
+    {
+      "case": "duplicate",
+      "report": "duplicate.json",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "one_saved_plan": true,
+        "no_new_model_call": true
+      },
+      "passed": true
+    },
+    {
+      "case": "step_limit",
+      "report": "step_limit.json",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "explicit_step_limit": true
+      },
+      "passed": true
+    },
+    {
+      "case": "resume",
+      "report": "resume.json",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "script_reused": true
+      },
+      "passed": true
+    }
+  ],
+  "passed": 13,
+  "total": 13,
+  "note": "离线流程证据，不证明真实模型效果"
+}

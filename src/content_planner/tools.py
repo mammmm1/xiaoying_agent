@@ -1,6 +1,7 @@
 """Business tools: model chooses actions; tools enforce data and save constraints."""
 from datetime import timedelta
 from pathlib import Path
+import math
 import sqlite3
 from .common import digest, parse_time, read_json
 
@@ -32,9 +33,21 @@ SPEC = {item["function"]["name"]: item["function"]["parameters"] for item in SCH
 
 
 class ToolError(Exception):
-    def __init__(self, code, message):
+    def __init__(self, code, message, retryable=None):
         self.code = code
+        self.retryable = retryable
         super().__init__(message)
+
+
+def data_error(code, message):
+    return ToolError(code, message, retryable=False)
+
+
+def valid_amount(value):
+    try:
+        return not isinstance(value, bool) and isinstance(value, (int, float)) and math.isfinite(value) and value >= 0
+    except OverflowError:
+        return False
 
 
 def validate_args(name, args):
@@ -80,6 +93,8 @@ class Tools:
             result = {"ok": True, **result}
         except ToolError as exc:
             result = {"ok": False, "error": {"code": exc.code, "message": str(exc)}}
+            if exc.retryable is not None:
+                result["error"]["retryable"] = exc.retryable
         except (sqlite3.Error, OSError):
             result = {"ok": False, "error": {"code": "STORAGE_ERROR", "message": "工具存储失败；未确认保存成功"}}
         self.state["tool_steps"].append({"tool": name, "arguments": args, "result": result,
@@ -90,7 +105,20 @@ class Tools:
     def search_assets(self, query):
         query = query.lower().strip()
         scored = []
+        if not isinstance(self.assets, list):
+            raise data_error("INVALID_ASSET_DATA", "素材库必须是素材对象列表")
+        seen = set()
         for asset in self.assets:
+            if not isinstance(asset, dict):
+                raise data_error("INVALID_ASSET_DATA", "素材条目必须是对象")
+            if (not isinstance(asset.get("id"), str) or not asset["id"].strip()
+                    or asset["id"] in seen):
+                raise data_error("INVALID_ASSET_DATA", "素材 id 必须是非空且唯一的文本")
+            seen.add(asset["id"])
+            if (not isinstance(asset.get("title"), str) or not asset["title"].strip()
+                    or not isinstance(asset.get("tags"), list)
+                    or any(not isinstance(tag, str) or not tag.strip() for tag in asset["tags"])):
+                raise data_error("INVALID_ASSET_DATA", "素材 title 必须为非空文本，tags 必须为文本列表")
             # Deliberately simple local keyword retrieval; no vector database required.
             terms = [*asset["tags"], asset["title"]]
             score = sum(term.lower() in query or query in term.lower() for term in terms)
@@ -105,6 +133,11 @@ class Tools:
         asset_ids = list(dict.fromkeys(asset_ids))
         if any(key not in self.state["retrieved"] for key in asset_ids):
             raise ToolError("DEPENDENCY_MISSING", "只能使用检索成功且已观察到的素材 ID")
+        for aid in asset_ids:
+            facts = self.state["retrieved"][aid].get("facts")
+            if (not isinstance(facts, list) or not facts
+                    or any(not isinstance(fact, str) or not fact.strip() for fact in facts)):
+                raise data_error("INVALID_ASSET_DATA", f"素材 {aid} 的 facts 必须为非空文本列表；请补充资料或改用有效素材")
         key = "script-" + digest([asset_ids, format, self.data_hash])
         cached = key in self.state["scripts"]
         if not cached:
@@ -116,19 +149,42 @@ class Tools:
         self.state["current_script_id"] = key
         return {"script": self.state["scripts"][key], "cached": cached}
 
+    def rate_parts(self, tier):
+        rate = self.rates
+        if not isinstance(rate, dict):
+            raise data_error("INVALID_RATES", "费率表必须是对象")
+        for field in ("currency", "version"):
+            if not isinstance(rate.get(field), str) or not rate[field].strip():
+                raise data_error("INVALID_RATES", f"费率表 {field} 必须为非空文本")
+        production = rate.get("production")
+        if not isinstance(production, dict) or tier not in production:
+            raise data_error("INVALID_RATES", f"费率表缺少 production.{tier} 配置")
+        parts = []
+        for step, part, path in [("research", rate.get("research"), "research"),
+                                 ("script", rate.get("script"), "script"),
+                                 ("production", production[tier], f"production.{tier}"),
+                                 ("save", rate.get("save"), "save")]:
+            if not isinstance(part, dict):
+                raise data_error("INVALID_RATES", f"费率表 {path} 必须是对象")
+            for field in ("cost", "minutes"):
+                if not valid_amount(part.get(field)):
+                    raise data_error("INVALID_RATES", f"费率表 {path}.{field} 必须是非负有限数，不能使用文本或布尔值")
+            parts.append({**part, "step": step})
+        return parts
+
     def estimate_plan(self, tier):
         script_id = self.state.get("current_script_id")
         if not script_id:
             raise ToolError("DEPENDENCY_MISSING", "请先成功检索并生成脚本")
         rate = self.rates
-        parts = [
-            {"step": "research", **rate["research"]},
-            {"step": "script", **rate["script"]},
-            {"step": "production", **rate["production"][tier]},
-            {"step": "save", **rate["save"]},
-        ]
+        parts = self.rate_parts(tier)
         cost, minutes = sum(v["cost"] for v in parts), sum(v["minutes"] for v in parts)
-        finish = parse_time(self.request["start_at"]) + timedelta(minutes=minutes)
+        if not valid_amount(cost) or not valid_amount(minutes):
+            raise data_error("INVALID_RATES", "费率合计超出有限数值范围")
+        try:
+            finish = parse_time(self.request["start_at"]) + timedelta(minutes=minutes)
+        except (OverflowError, ValueError):
+            raise data_error("INVALID_RATES", "费率耗时超出可表示的日期范围") from None
         deadline = parse_time(self.request["deadline"])
         estimate = {"estimate_id": "estimate-" + digest([script_id, tier, self.request, self.data_hash]),
                     "script_id": script_id, "tier": tier, "breakdown": parts,

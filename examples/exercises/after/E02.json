@@ -1,0 +1,352 @@
+{
+  "case": "E02",
+  "title": "素材库更新后生成脚本",
+  "generated_at": "2026-10-28T12:09:04.905084+00:00",
+  "evidence_type": "offline_debugging_exercise",
+  "mock": true,
+  "purpose": "供候选人定位分析的异常演练；不计入正式验收通过率，不证明真实模型效果。",
+  "request": {
+    "request_id": "debug-E02",
+    "theme": "字幕剪辑产品教程",
+    "budget": 10,
+    "start_at": "2026-11-01T09:00:00+08:00",
+    "deadline": "2026-11-01T13:00:00+08:00"
+  },
+  "diagnosis_status": "ai_analysis_completed",
+  "actual_report": {
+    "run_id": "7b83a4a2-a618-4ba8-a3f8-de944b46a0c0",
+    "started_at": "2026-10-28T12:09:04.905084+00:00",
+    "provider": "mock",
+    "model": "offline-rule-simulator",
+    "mock": true,
+    "request": {
+      "request_id": "debug-E02",
+      "theme": "字幕剪辑产品教程",
+      "budget": 10,
+      "start_at": "2026-11-01T09:00:00+08:00",
+      "deadline": "2026-11-01T13:00:00+08:00"
+    },
+    "max_steps": 12,
+    "trace": [
+      {
+        "step": 1,
+        "tool": "search_assets",
+        "arguments": {
+          "query": "字幕剪辑产品教程",
+          "reason": "先查找主题相关素材"
+        },
+        "decision_basis": "先查找主题相关素材",
+        "observation": {
+          "ok": true,
+          "assets": [
+            {
+              "id": "A03",
+              "tags": [
+                "教程",
+                "字幕",
+                "剪辑",
+                "产品"
+              ],
+              "title": "剪辑入门教程",
+              "facts": [
+                "教程依次演示导入素材、编辑字幕与导出视频"
+              ],
+              "source": "合成教程 v1 / 2026-10-28"
+            },
+            {
+              "id": "A01",
+              "tags": [
+                "字幕",
+                "短视频",
+                "产品",
+                "剪辑"
+              ],
+              "title": "字幕功能演示",
+              "source": "异常演练素材 E02"
+            }
+          ],
+          "count": 2,
+          "query": "字幕剪辑产品教程"
+        },
+        "metadata": {
+          "model": "offline-rule-simulator",
+          "usage": {}
+        },
+        "next_action": "generate_script",
+        "observation_summary": {
+          "ok": true,
+          "count": 2,
+          "query": "字幕剪辑产品教程"
+        }
+      },
+      {
+        "step": 2,
+        "tool": "generate_script",
+        "arguments": {
+          "asset_ids": [
+            "A03",
+            "A01"
+          ],
+          "format": "tutorial",
+          "reason": "依据已检索素材生成脚本"
+        },
+        "decision_basis": "依据已检索素材生成脚本",
+        "observation": {
+          "ok": false,
+          "error": {
+            "code": "INVALID_ASSET_DATA",
+            "message": "素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+            "retryable": false
+          }
+        },
+        "metadata": {
+          "model": "offline-rule-simulator",
+          "usage": {}
+        },
+        "next_action": "finish",
+        "observation_summary": {
+          "ok": false,
+          "error": {
+            "code": "INVALID_ASSET_DATA",
+            "message": "素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+            "retryable": false
+          }
+        }
+      },
+      {
+        "step": 3,
+        "tool": "finish",
+        "arguments": {
+          "reason": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+          "status": "incomplete",
+          "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+        },
+        "decision_basis": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+        "observation": {
+          "ok": true,
+          "status": "incomplete",
+          "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+        },
+        "metadata": {
+          "model": "offline-rule-simulator",
+          "usage": {}
+        },
+        "next_action": "结束：incomplete",
+        "observation_summary": {
+          "ok": true,
+          "status": "incomplete",
+          "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+        }
+      }
+    ],
+    "model_calls": 3,
+    "tool_calls": 3,
+    "api_usage": {
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0
+    },
+    "status": "incomplete",
+    "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+    "error_code": null,
+    "saved": false,
+    "plan": null,
+    "latest_estimate": null,
+    "steps": [
+      {
+        "tool": "search_assets",
+        "arguments": {
+          "query": "字幕剪辑产品教程",
+          "reason": "先查找主题相关素材"
+        },
+        "result": {
+          "ok": true,
+          "assets": [
+            {
+              "id": "A03",
+              "tags": [
+                "教程",
+                "字幕",
+                "剪辑",
+                "产品"
+              ],
+              "title": "剪辑入门教程",
+              "facts": [
+                "教程依次演示导入素材、编辑字幕与导出视频"
+              ],
+              "source": "合成教程 v1 / 2026-10-28"
+            },
+            {
+              "id": "A01",
+              "tags": [
+                "字幕",
+                "短视频",
+                "产品",
+                "剪辑"
+              ],
+              "title": "字幕功能演示",
+              "source": "异常演练素材 E02"
+            }
+          ],
+          "count": 2,
+          "query": "字幕剪辑产品教程"
+        },
+        "status": "completed"
+      },
+      {
+        "tool": "generate_script",
+        "arguments": {
+          "asset_ids": [
+            "A03",
+            "A01"
+          ],
+          "format": "tutorial",
+          "reason": "依据已检索素材生成脚本"
+        },
+        "result": {
+          "ok": false,
+          "error": {
+            "code": "INVALID_ASSET_DATA",
+            "message": "素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+            "retryable": false
+          }
+        },
+        "status": "failed"
+      },
+      {
+        "tool": "finish",
+        "arguments": {
+          "reason": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+          "status": "incomplete",
+          "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+        },
+        "result": {
+          "ok": true,
+          "status": "incomplete",
+          "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+        },
+        "status": "completed"
+      }
+    ],
+    "ended_at": "2026-10-28T12:09:04.955468+00:00",
+    "evidence_note": "离线规则模拟，仅验证流程，不证明真实模型决策效果"
+  },
+  "outcome": "incomplete",
+  "error_code": null,
+  "selected_actions": [
+    {
+      "tool": "search_assets",
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      }
+    },
+    {
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "依据已检索素材生成脚本"
+      }
+    },
+    {
+      "tool": "finish",
+      "arguments": {
+        "reason": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+        "status": "incomplete",
+        "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+      }
+    }
+  ],
+  "database_has_plan": false,
+  "database_plan_id": null,
+  "database_plan_count": 0,
+  "checkpoint_steps": [
+    {
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      },
+      "result": {
+        "assets": [
+          {
+            "facts": [
+              "教程依次演示导入素材、编辑字幕与导出视频"
+            ],
+            "id": "A03",
+            "source": "合成教程 v1 / 2026-10-28",
+            "tags": [
+              "教程",
+              "字幕",
+              "剪辑",
+              "产品"
+            ],
+            "title": "剪辑入门教程"
+          },
+          {
+            "id": "A01",
+            "source": "异常演练素材 E02",
+            "tags": [
+              "字幕",
+              "短视频",
+              "产品",
+              "剪辑"
+            ],
+            "title": "字幕功能演示"
+          }
+        ],
+        "count": 2,
+        "ok": true,
+        "query": "字幕剪辑产品教程"
+      },
+      "status": "completed",
+      "tool": "search_assets"
+    },
+    {
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "依据已检索素材生成脚本"
+      },
+      "result": {
+        "error": {
+          "code": "INVALID_ASSET_DATA",
+          "message": "素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+          "retryable": false
+        },
+        "ok": false
+      },
+      "status": "failed",
+      "tool": "generate_script"
+    },
+    {
+      "arguments": {
+        "reason": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材",
+        "status": "incomplete",
+        "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+      },
+      "result": {
+        "ok": true,
+        "status": "incomplete",
+        "summary": "工具资料需要修正，保留已成功步骤：素材 A01 的 facts 必须为非空文本列表；请补充资料或改用有效素材"
+      },
+      "status": "completed",
+      "tool": "finish"
+    }
+  ],
+  "regression_checks": {
+    "no_unhandled_exception": true,
+    "explicit_incomplete": true,
+    "not_saved": true,
+    "actual_data_error": true,
+    "successful_work_retained": true,
+    "no_unchanged_data_retry": true
+  },
+  "regression_passed": true
+}
