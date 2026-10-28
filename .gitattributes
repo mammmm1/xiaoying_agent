@@ -1,0 +1,11 @@
+# Keep evidence byte-for-byte identical: review reports include SHA256 hashes.
+*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+examples/test-results.txt -text whitespace=trailing-space,space-before-tab,cr-at-eol
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.env.example text eol=lf
+requirements.txt text eol=lf

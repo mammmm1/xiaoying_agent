@@ -1,0 +1,203 @@
+{
+  "rechecked_at": "2026-10-28T10:29:25.271802+00:00",
+  "provider": "deepseek",
+  "mock": false,
+  "original_summary": "summary.json",
+  "original_passed": 12,
+  "original_summary_sha256": "4adf55d2d4e8c2f1b742022b5c9001361bcc8a580932730818bf50c82e272037",
+  "cases": [
+    {
+      "case": "normal",
+      "report": "normal.json",
+      "source_sha256": "daab107a587793a02fbe9973ade87152f4aab76657885672fbd41f210c2fced8",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true
+      },
+      "passed": true
+    },
+    {
+      "case": "replan",
+      "report": "replan.json",
+      "source_sha256": "0c0fbf0b8312afcf3f4dcd426e521faa9a2045abe472f2cf9e25bd2d83954301",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "observed_replanning": true
+      },
+      "passed": true
+    },
+    {
+      "case": "missing_budget",
+      "report": "missing_budget.json",
+      "source_sha256": "534586c3a97d5138d09b8f90fb570d6d3c48ee1b7925cfe490ef76c9c1439201",
+      "status": "needs_input",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true
+      },
+      "passed": true
+    },
+    {
+      "case": "missing_deadline",
+      "report": "missing_deadline.json",
+      "source_sha256": "2d6cb9c1a2abbf84b608a41f9d8f0242996bda6e327af364b8950e120901a2c8",
+      "status": "needs_input",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true
+      },
+      "passed": true
+    },
+    {
+      "case": "tool_failure",
+      "report": "tool_failure.json",
+      "source_sha256": "cf86584c780e193c1d0bc970b91c8949ac65309e387123318b657a2e2eaf9bd6",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "failure_observed": true,
+        "retrieval_preserved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "save_failure",
+      "report": "save_failure.json",
+      "source_sha256": "04280f0d7448587b272bb4734a8e3d7fb35eac45f5167330cc4fc9236789c908",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "actual_save_failure": true,
+        "not_saved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "over_budget",
+      "report": "over_budget.json",
+      "source_sha256": "5c9bfca093b0901bad36fbe6c8cc4eba3456cd470150a0903e527316a90a4106",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "observed_constraint_gap": true,
+        "not_saved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "deadline_replan",
+      "report": "deadline_replan.json",
+      "source_sha256": "2b933be239816dc7674e8e57d0e8e42e3ba810f65d4babd8ca11e35d4f81dd05",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true
+      },
+      "passed": true
+    },
+    {
+      "case": "deadline_impossible",
+      "report": "deadline_impossible.json",
+      "source_sha256": "b394dfa4fc2393509469418139561b3c5e91adff08d40c1f9515c888d98d283a",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "observed_constraint_gap": true,
+        "not_saved": true
+      },
+      "passed": true
+    },
+    {
+      "case": "no_assets",
+      "report": "no_assets.json",
+      "source_sha256": "af1708ebbc528fbfd356f6530b7e46d0ddb1ddb378ddfe6b6671a4e7d38ee799",
+      "status": "needs_input",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "empty_material_observed": true,
+        "no_fabricated_script_or_save": true,
+        "explicit_material_gap": true
+      },
+      "passed": true
+    },
+    {
+      "case": "duplicate",
+      "report": "duplicate.json",
+      "source_sha256": "14d2ea35fef2549f7afd48c87c7930a7cba23f7f62acf18ce07733b72af7bf44",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "one_saved_plan": true,
+        "no_new_model_call": true
+      },
+      "passed": true
+    },
+    {
+      "case": "step_limit",
+      "report": "step_limit.json",
+      "source_sha256": "f45c4216cdbc054a683e7503ad7f5267b002120e593b3ef6b8163bd8efa5315c",
+      "status": "incomplete",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "explicit_step_limit": true
+      },
+      "passed": true
+    },
+    {
+      "case": "resume",
+      "report": "resume.json",
+      "source_sha256": "ee28105b090a81d429696474c0de976156ec6ab32c1a2005a10390b42fd231bf",
+      "status": "completed",
+      "checks": {
+        "expected_status": true,
+        "bounded": true,
+        "no_false_completion": true,
+        "within_budget": true,
+        "within_deadline": true,
+        "sum_matches": true,
+        "script_reused": true
+      },
+      "passed": true
+    }
+  ],
+  "passed": 13,
+  "total": 13,
+  "note": "仅复核原始记录，未调用模型、未修改原始输出；无素材时允许明确追问(needs_input)或说明资料缺口后停止(incomplete)，并验证实际空检索与无编造保存。原始数据库防重复检查沿用首次实测结果。"
+}

@@ -1,0 +1,45 @@
+Generated: 2026-10-28T10:29:25.684658+00:00
+Python: 3.12.7
+Command equivalent: python -m unittest discover -s tests -v
+
+test_deadline_replanning (test_agent.AgentTests.test_deadline_replanning) ... ok
+test_duplicate_across_database_reopen (test_agent.AgentTests.test_duplicate_across_database_reopen) ... ok
+test_failed_save_resume_does_not_regenerate_script (test_agent.AgentTests.test_failed_save_resume_does_not_regenerate_script) ... ok
+test_impossible_deadline (test_agent.AgentTests.test_impossible_deadline) ... ok
+test_invalid_money_and_dates (test_agent.AgentTests.test_invalid_money_and_dates) ... ok
+test_missing_budget_and_deadline_no_api_call (test_agent.AgentTests.test_missing_budget_and_deadline_no_api_call) ... ok
+test_mock_and_real_evidence_are_not_mixed (test_agent.AgentTests.test_mock_and_real_evidence_are_not_mixed) ... ok
+test_model_api_failure_is_not_silently_mocked (test_agent.AgentTests.test_model_api_failure_is_not_silently_mocked) ... ok
+test_model_cannot_claim_complete_without_save (test_agent.AgentTests.test_model_cannot_claim_complete_without_save) ... ok
+test_no_assets_stops (test_agent.AgentTests.test_no_assets_stops) ... ok
+test_normal_complete_and_plan_contents (test_agent.AgentTests.test_normal_complete_and_plan_contents) ... ok
+test_over_budget_stops_and_reports_gap (test_agent.AgentTests.test_over_budget_stops_and_reports_gap) ... ok
+test_real_storage_error_is_observable (test_agent.AgentTests.test_real_storage_error_is_observable) ... ok
+test_repeated_run_has_one_plan_and_no_second_model_call (test_agent.AgentTests.test_repeated_run_has_one_plan_and_no_second_model_call) ... ok
+test_replanning_uses_observation_and_preserves_script (test_agent.AgentTests.test_replanning_uses_observation_and_preserves_script) ... ok
+test_same_id_changed_input_rejected_without_returning_other_plan (test_agent.AgentTests.test_same_id_changed_input_rejected_without_returning_other_plan) ... ok
+test_save_failure_never_reported_as_saved (test_agent.AgentTests.test_save_failure_never_reported_as_saved) ... ok
+test_step_limit_and_resume_reuses_script (test_agent.AgentTests.test_step_limit_and_resume_reuses_script) ... ok
+test_tool_failure_retry_retains_retrieval (test_agent.AgentTests.test_tool_failure_retry_retains_retrieval) ... ok
+test_data_change_rejects_checkpoint (test_agent.ToolBoundaries.test_data_change_rejects_checkpoint) ... ok
+test_same_script_is_cached (test_agent.ToolBoundaries.test_same_script_is_cached) ... ok
+test_save_blocks_over_budget_even_if_model_tries (test_agent.ToolBoundaries.test_save_blocks_over_budget_even_if_model_tries) ... ok
+test_save_is_idempotent_at_storage_boundary (test_agent.ToolBoundaries.test_save_is_idempotent_at_storage_boundary) ... ok
+test_stale_estimate_cannot_save_changed_script (test_agent.ToolBoundaries.test_stale_estimate_cannot_save_changed_script) ... ok
+test_unknown_tool_and_forged_cost_rejected (test_agent.ToolBoundaries.test_unknown_tool_and_forged_cost_rejected) ... ok
+test_unretrieved_asset_rejected (test_agent.ToolBoundaries.test_unretrieved_asset_rejected) ... ok
+test_empty_material_can_request_input_but_must_have_evidence (test_evaluation.EvaluationTests.test_empty_material_can_request_input_but_must_have_evidence) ... ok
+test_network_failure_cannot_pass_negative_business_cases (test_evaluation.EvaluationTests.test_network_failure_cannot_pass_negative_business_cases) ... ok
+test_http_error_redacts_server_body (test_models.AdapterTests.test_http_error_redacts_server_body) ... ok
+test_malformed_response_fails_clearly (test_models.AdapterTests.test_malformed_response_fails_clearly) ... ok
+test_missing_key_and_insecure_url (test_models.AdapterTests.test_missing_key_and_insecure_url) ... ok
+test_native_tool_schema_and_api_key_not_logged (test_models.AdapterTests.test_native_tool_schema_and_api_key_not_logged) ... ok
+test_truncated_response_is_not_executed (test_models.AdapterTests.test_truncated_response_is_not_executed) ... ok
+test_batch_calls_cause_no_partial_mutation (test_models.ProtocolTests.test_batch_calls_cause_no_partial_mutation) ... ok
+test_invalid_json_arguments_are_observed_and_can_be_corrected (test_models.ProtocolTests.test_invalid_json_arguments_are_observed_and_can_be_corrected) ... ok
+test_plain_text_claim_does_not_mark_complete (test_models.ProtocolTests.test_plain_text_claim_does_not_mark_complete) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 0.243s
+
+OK

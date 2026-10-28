@@ -1,0 +1,229 @@
+{
+  "run_id": "83f40f3c-358a-43f6-871b-52d7c82f87fb",
+  "started_at": "2026-10-28T09:39:57.636520+00:00",
+  "provider": "mock",
+  "model": "offline-rule-simulator",
+  "mock": true,
+  "request": {
+    "request_id": "resume-001",
+    "theme": "字幕剪辑产品教程",
+    "budget": 10,
+    "start_at": "2026-11-01T09:00:00+08:00",
+    "deadline": "2026-11-01T13:00:00+08:00"
+  },
+  "max_steps": 2,
+  "trace": [
+    {
+      "step": 1,
+      "tool": "search_assets",
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      },
+      "decision_basis": "先查找主题相关素材",
+      "observation": {
+        "ok": true,
+        "assets": [
+          {
+            "id": "A03",
+            "tags": [
+              "教程",
+              "字幕",
+              "剪辑",
+              "产品"
+            ],
+            "title": "剪辑入门教程",
+            "facts": [
+              "教程依次演示导入素材、编辑字幕与导出视频"
+            ],
+            "source": "合成教程 v1 / 2026-10-28"
+          },
+          {
+            "id": "A01",
+            "tags": [
+              "字幕",
+              "短视频",
+              "产品",
+              "剪辑"
+            ],
+            "title": "字幕功能演示",
+            "facts": [
+              "演示素材展示了为视频添加字幕的操作",
+              "字幕文本可以编辑"
+            ],
+            "source": "合成产品说明 v1 / 2026-10-28"
+          }
+        ],
+        "count": 2,
+        "query": "字幕剪辑产品教程"
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "generate_script",
+      "observation_summary": {
+        "ok": true,
+        "count": 2,
+        "query": "字幕剪辑产品教程"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "依据已检索素材生成脚本"
+      },
+      "decision_basis": "依据已检索素材生成脚本",
+      "observation": {
+        "ok": true,
+        "script": {
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "format": "tutorial",
+          "scenes": [
+            {
+              "scene": 1,
+              "visual": "剪辑入门教程",
+              "narration": "教程依次演示导入素材、编辑字幕与导出视频",
+              "source_ids": [
+                "A03"
+              ]
+            },
+            {
+              "scene": 2,
+              "visual": "字幕功能演示",
+              "narration": "演示素材展示了为视频添加字幕的操作；字幕文本可以编辑",
+              "source_ids": [
+                "A01"
+              ]
+            }
+          ],
+          "service": "local_template_mock",
+          "asset_ids": [
+            "A03",
+            "A01"
+          ]
+        },
+        "cached": false
+      },
+      "metadata": {
+        "model": "offline-rule-simulator",
+        "usage": {}
+      },
+      "next_action": "结束：incomplete",
+      "observation_summary": {
+        "script_id": "script-241841aba8712f30ffdf47ef",
+        "cached": false
+      }
+    }
+  ],
+  "model_calls": 2,
+  "tool_calls": 2,
+  "api_usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0
+  },
+  "status": "incomplete",
+  "summary": "达到执行轮数上限；已保留成功结果，可使用相同请求续跑",
+  "error_code": "STEP_LIMIT",
+  "saved": false,
+  "plan": null,
+  "latest_estimate": null,
+  "steps": [
+    {
+      "tool": "search_assets",
+      "arguments": {
+        "query": "字幕剪辑产品教程",
+        "reason": "先查找主题相关素材"
+      },
+      "result": {
+        "ok": true,
+        "assets": [
+          {
+            "id": "A03",
+            "tags": [
+              "教程",
+              "字幕",
+              "剪辑",
+              "产品"
+            ],
+            "title": "剪辑入门教程",
+            "facts": [
+              "教程依次演示导入素材、编辑字幕与导出视频"
+            ],
+            "source": "合成教程 v1 / 2026-10-28"
+          },
+          {
+            "id": "A01",
+            "tags": [
+              "字幕",
+              "短视频",
+              "产品",
+              "剪辑"
+            ],
+            "title": "字幕功能演示",
+            "facts": [
+              "演示素材展示了为视频添加字幕的操作",
+              "字幕文本可以编辑"
+            ],
+            "source": "合成产品说明 v1 / 2026-10-28"
+          }
+        ],
+        "count": 2,
+        "query": "字幕剪辑产品教程"
+      },
+      "status": "completed"
+    },
+    {
+      "tool": "generate_script",
+      "arguments": {
+        "asset_ids": [
+          "A03",
+          "A01"
+        ],
+        "format": "tutorial",
+        "reason": "依据已检索素材生成脚本"
+      },
+      "result": {
+        "ok": true,
+        "script": {
+          "script_id": "script-241841aba8712f30ffdf47ef",
+          "format": "tutorial",
+          "scenes": [
+            {
+              "scene": 1,
+              "visual": "剪辑入门教程",
+              "narration": "教程依次演示导入素材、编辑字幕与导出视频",
+              "source_ids": [
+                "A03"
+              ]
+            },
+            {
+              "scene": 2,
+              "visual": "字幕功能演示",
+              "narration": "演示素材展示了为视频添加字幕的操作；字幕文本可以编辑",
+              "source_ids": [
+                "A01"
+              ]
+            }
+          ],
+          "service": "local_template_mock",
+          "asset_ids": [
+            "A03",
+            "A01"
+          ]
+        },
+        "cached": false
+      },
+      "status": "completed"
+    }
+  ],
+  "ended_at": "2026-10-28T09:39:57.684196+00:00",
+  "evidence_note": "离线规则模拟，仅验证流程，不证明真实模型决策效果"
+}

@@ -1,0 +1,31 @@
+{
+  "run_id": "9e9ccdb2-0005-4b2d-a365-71096435bb48",
+  "started_at": "2026-10-28T10:25:54.988252+00:00",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "mock": false,
+  "request": {
+    "request_id": "missing-deadline-001",
+    "theme": "字幕剪辑产品教程",
+    "budget": 10,
+    "start_at": "2026-11-01T09:00:00+08:00"
+  },
+  "max_steps": 12,
+  "trace": [],
+  "model_calls": 0,
+  "tool_calls": 0,
+  "api_usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0
+  },
+  "status": "needs_input",
+  "summary": "缺少或无效字段：deadline",
+  "error_code": "INVALID_INPUT",
+  "saved": false,
+  "plan": null,
+  "latest_estimate": null,
+  "steps": [],
+  "ended_at": "2026-10-28T10:25:54.988252+00:00",
+  "evidence_note": "真实 API 路径；须结合 trace 检查本次是否实际完成模型调用"
+}

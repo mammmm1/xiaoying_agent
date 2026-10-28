@@ -1,0 +1,13 @@
+{
+  "version":"synthetic-v1",
+  "currency":"模拟单位",
+  "policy":"方案预算为固定素材整理、脚本与制作步骤的计划成本；本地工具调用和失败不收费，反复模拟估算不重复计费。真实模型 API 费用独立计量，不包含在业务预算内。所有步骤按串行估算。",
+  "research":{"cost":1,"minutes":5},
+  "script":{"cost":2,"minutes":10},
+  "production":{
+    "premium":{"cost":9,"minutes":90,"description":"精细剪辑与定制包装"},
+    "standard":{"cost":5,"minutes":45,"description":"模板剪辑与字幕"},
+    "basic":{"cost":2,"minutes":20,"description":"单素材基础剪辑"}
+  },
+  "save":{"cost":0,"minutes":1}
+}

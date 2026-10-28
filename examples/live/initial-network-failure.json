@@ -1,0 +1,40 @@
+{
+  "run_id": "fdb2a702-9d34-423b-8322-5126ab16710b",
+  "started_at": "2026-10-28T09:48:37.382887+00:00",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "mock": false,
+  "request": {
+    "request_id": "normal-001",
+    "theme": "字幕剪辑产品教程",
+    "budget": 20,
+    "start_at": "2026-11-01T09:00:00+08:00",
+    "deadline": "2026-11-01T13:00:00+08:00"
+  },
+  "max_steps": 12,
+  "trace": [
+    {
+      "step": 1,
+      "event": "model_error",
+      "error": "模型 API 网络或超时错误；检查网络后使用原 request_id 续跑",
+      "next_action": "结束：incomplete",
+      "observation_summary": {}
+    }
+  ],
+  "model_calls": 1,
+  "tool_calls": 0,
+  "api_usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0
+  },
+  "status": "incomplete",
+  "summary": "模型 API 网络或超时错误；检查网络后使用原 request_id 续跑",
+  "error_code": "MODEL_ERROR",
+  "saved": false,
+  "plan": null,
+  "latest_estimate": null,
+  "steps": [],
+  "ended_at": "2026-10-28T09:48:37.543560+00:00",
+  "evidence_note": "真实 API 路径；须结合 trace 检查本次是否实际完成模型调用"
+}
